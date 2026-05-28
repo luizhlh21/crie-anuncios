@@ -234,6 +234,13 @@ body {
     min-width: 300px;
 }
 
+.hero-image .hero-brand-badge {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
 .hero-image img {
     max-width: 100%;
     height: auto;
@@ -462,6 +469,12 @@ body {
 
 .footer-section a:hover {
     color: var(--primary-color);
+}
+
+.footer-brand {
+    color: white;
+    font-weight: 700;
+    margin-top: 0.75rem;
 }
 
 .footer-section ul {
