@@ -791,3 +791,48 @@ body {
         transform: translateY(0);
     }
 }
+
+/* =========================
+   OVERRIDES: HERO, TRUST, PROOF
+   ========================= */
+.hero { padding: 4rem 0; }
+.hero-title { font-size: 2.25rem; }
+.hero-subtitle { font-size: 1.05rem; color: var(--text-light); }
+.hero-benefits { display:flex; gap:1rem 2rem; list-style:none; margin:0.5rem 0 1rem; padding:0; justify-content:center; font-weight:600; }
+.hero-cta-row { display:flex; gap:1rem; align-items:center; justify-content:center; margin-top:0.75rem; }
+.microcopy { font-size:0.95rem; color:var(--text-light); }
+.trust-row { display:flex; gap:1rem; align-items:center; justify-content:center; margin-top:0.9rem; flex-wrap:wrap; }
+.rating { font-weight:700; background:rgba(255,255,255,0.06); padding:0.45rem 0.8rem; border-radius:999px; }
+.rating-score { font-weight:800; margin-left:0.25rem; }
+.trust-badges img { height:36px; margin-left:0.5rem; opacity:0.98; }
+.trust-badges img { max-width:120px; height:auto; object-fit:contain; display:inline-block; }
+.trust-badges img + img { margin-left:0.6rem; }
+.testimonial-card img, .trust-badges img { vertical-align:middle; }
+
+/* Placeholder fallback styling */
+.img-placeholder {
+    display:inline-block; width:120px; height:36px; background:#f3f4f6; color:#9ca3af; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:12px;
+}
+.social-proof .testimonials { display:flex; gap:1rem; margin-top:1.25rem; flex-wrap:wrap; }
+.testimonial-card { background: rgba(255,255,255,0.95); padding:1rem 1.25rem; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.06); max-width:600px; }
+.testimonial-text { color: var(--text-dark); font-weight:600; }
+.testimonial-author { color:var(--text-light); margin-top:0.5rem; font-size:0.95rem; }
+.proof-content { display:flex; gap:1.5rem; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+.proof-item h3 { font-size:2rem; }
+
+/* How it works */
+.how-it-works { padding:3rem 0; background: white; }
+.how-it-works .steps-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem; margin-top:1rem; }
+.step { background: var(--bg-white); border-radius:10px; padding:1.25rem; text-align:center; border:1px solid var(--border-color); }
+.step-icon { width:44px; height:44px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary-color); color:white; font-weight:700; margin-bottom:0.75rem; }
+.section-cta { text-align:center; margin-top:1.25rem; }
+
+/* CTA visual improvements */
+.cta-primary { background: linear-gradient(90deg,var(--primary-color),var(--primary-dark)); color:white; box-shadow:0 8px 30px rgba(79,70,229,0.12); border-radius:10px; }
+.cta-primary:hover { transform:translateY(-3px); box-shadow:0 12px 40px rgba(79,70,229,0.14); }
+
+@media (max-width: 768px) {
+    .hero-title { font-size:1.5rem; }
+    .hero-cta-row { flex-direction:column; }
+    .trust-badges img { height:28px; }
+}

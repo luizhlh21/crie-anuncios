@@ -1,37 +1,54 @@
-// Mobile Menu Toggle
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const navLinks = document.querySelector('.nav-links');
+/* Enhanced front-end script: accessibility, tracking and performance
+   - Pushes tracking events to dataLayer (GTM/GA4)
+   - Adds scroll-depth tracking
+   - Tracks CTA clicks and labels
+   - Improves mobile menu accessibility
+*/
 
-mobileMenuBtn.addEventListener('click', function() {
-    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-});
+// Short helpers
+const $ = (sel, ctx=document) => ctx.querySelector(sel);
+const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
 
-// Close mobile menu when a link is clicked
-document.querySelectorAll('.nav-links a').forEach(link => {
+// Mobile Menu Toggle (accessible)
+const mobileMenuBtn = $('#mobileMenuBtn');
+const navLinks = $('.nav-links');
+if (mobileMenuBtn) {
+    mobileMenuBtn.setAttribute('aria-expanded','false');
+    mobileMenuBtn.addEventListener('click', () => {
+        const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
+        navLinks.style.display = expanded ? 'none' : 'flex';
+    });
+}
+
+// Close mobile menu when a link is clicked (improve UX for small devices)
+$$('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-        navLinks.style.display = 'none';
+        if (window.innerWidth <= 768) {
+            navLinks.style.display = 'none';
+            mobileMenuBtn && mobileMenuBtn.setAttribute('aria-expanded','false');
+        }
     });
 });
 
-// FAQ Toggle
+// FAQ Toggle (keeps previous signature used in HTML)
 function toggleFaq(element) {
     const faqItem = element.parentElement;
     const answer = faqItem.querySelector('.faq-answer');
-    
-    // Close all other open items
-    document.querySelectorAll('.faq-item.active').forEach(item => {
+
+    // Close other items
+    $$('.faq-item.active').forEach(item => {
         if (item !== faqItem) {
             item.classList.remove('active');
             item.querySelector('.faq-answer').classList.remove('active');
         }
     });
 
-    // Toggle current item
     faqItem.classList.toggle('active');
     answer.classList.toggle('active');
 }
 
-// Modal Functions
+// Modal helpers
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
@@ -48,98 +65,99 @@ function closeModal(modalId) {
     }
 }
 
-// Close modal when clicking outside the modal content
-window.addEventListener('click', function(event) {
-    if (event.target.classList.contains('modal')) {
-        event.target.classList.remove('active');
+// Close modal on overlay click or Escape
+window.addEventListener('click', function(e){
+    if (e.target.classList && e.target.classList.contains('modal')) {
+        e.target.classList.remove('active');
         document.body.style.overflow = 'auto';
     }
 });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { $$('.modal.active').forEach(m=>{m.classList.remove('active');}); document.body.style.overflow='auto'; }});
 
-// Close modal with Escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        document.querySelectorAll('.modal.active').forEach(modal => {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-    }
-});
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+// Smooth scroll for anchors
+$$('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e){
         const href = this.getAttribute('href');
         if (href !== '#' && document.querySelector(href)) {
             e.preventDefault();
-            document.querySelector(href).scrollIntoView({
-                behavior: 'smooth'
-            });
+            document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
 
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
+// Intersection Observer for reveal animations (lightweight)
+const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+            observer.unobserve(entry.target);
         }
     });
-}, observerOptions);
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+$$('.benefit-card').forEach(card => observer.observe(card));
 
-// Observe all benefit cards
-document.querySelectorAll('.benefit-card').forEach(card => {
-    observer.observe(card);
-});
+// ---------------------------
+// Tracking (GTM / dataLayer)
+// ---------------------------
+window.dataLayer = window.dataLayer || [];
 
-// Track CTA button clicks
-document.querySelectorAll('.cta-button').forEach(button => {
-    button.addEventListener('click', function() {
-        console.log('CTA Button clicked:', this.href);
+function pushEvent(eventName, payload = {}) {
+    window.dataLayer.push(Object.assign({ event: eventName }, payload));
+}
+
+// Track CTA clicks and fire GA/Ads via dataLayer
+$$('.cta-button').forEach(btn => {
+    btn.addEventListener('click', function(e){
+        const label = this.dataset.cta || this.textContent.trim().slice(0,40);
+        pushEvent('cta_click', { cta_label: label, cta_url: this.href });
+
+        // Example gtag conversion (AW) — replace label if needed or implement via GTM
+        if (window.gtag && this.dataset.cta !== 'no-conversion') {
+            try {
+                gtag('event', 'conversion', { 'send_to': 'AW-11378859517/CONVERSION_LABEL', 'event_callback': function(){ /* callback after conversion */ } });
+            } catch (err) { /* silent */ }
+        }
     });
 });
 
-// Handle responsive mobile menu
-function handleResponsiveMenu() {
-    const navLinks = document.querySelector('.nav-links');
-    if (window.innerWidth > 768) {
-        navLinks.style.display = 'flex';
-    } else {
-        navLinks.style.display = 'none';
-    }
+// Scroll depth tracking (25/50/75/100)
+let scrollMilestones = [25,50,75,100];
+let passed = new Set();
+function handleScrollDepth(){
+    const pct = Math.round((window.scrollY + window.innerHeight) / document.body.scrollHeight * 100);
+    scrollMilestones.forEach(m => {
+        if (pct >= m && !passed.has(m)){
+            passed.add(m);
+            pushEvent('scroll_depth', { percent: m });
+        }
+    });
+}
+window.addEventListener('scroll', throttle(handleScrollDepth, 300));
+
+// Throttle utility
+function throttle(fn, wait){
+    let last = 0; return function(...args){
+        const now = Date.now(); if (now - last >= wait){ last = now; fn.apply(this,args); }
+    };
 }
 
-window.addEventListener('resize', handleResponsiveMenu);
-handleResponsiveMenu();
+// Basic enhanced conversions placeholder: capture email from URL or forms and push to dataLayer
+function initEnhancedConversions(){
+    // Example: if URL contains ?email=you@example.com -> push to dataLayer for GTM to handle hashing
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email');
+    if (email) pushEvent('enhanced_conversion_data', { email: email });
 
-// Accessibility: improve focus management
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-nav');
-    }
-});
+    // If site had a purchase form, hook into submit to send hashed email via GTM
+    // (GTM server-side or tag template must be configured to use this)
+}
+initEnhancedConversions();
 
-document.addEventListener('mousedown', function() {
-    document.body.classList.remove('keyboard-nav');
-});
+// Accessibility: keyboard nav outlines
+document.addEventListener('keydown', function(e){ if (e.key === 'Tab') document.body.classList.add('keyboard-nav'); });
+document.addEventListener('mousedown', function(){ document.body.classList.remove('keyboard-nav'); });
+const focusStyle = document.createElement('style'); focusStyle.textContent = 'body.keyboard-nav *:focus{ outline:2px solid rgba(99,102,241,0.9)!important; outline-offset:2px; }'; document.head.appendChild(focusStyle);
 
-// Add CSS for keyboard navigation
-const style = document.createElement('style');
-style.textContent = `
-    body.keyboard-nav *:focus {
-        outline: 2px solid var(--primary-color) !important;
-        outline-offset: 2px;
-    }
-`;
-document.head.appendChild(style);
-
-// Console message
-console.log('%c MarketingPro - Landing Page', 'color: #6366f1; font-size: 16px; font-weight: bold;');
-console.log('%c Transformando profissionais em especialistas de marketing digital.', 'color: #6b7280; font-size: 14px;');
+// Console friendly message minimized
+if (window.console) console.log('MarketingPro - Landing optimized');
