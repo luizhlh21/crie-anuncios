@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="120" viewBox="0 0 400 120" role="img" aria-label="Garantia 30 Dias">
-  <rect width="400" height="120" rx="12" fill="#111827" />
-  <g transform="translate(20,18)">
-    <circle cx="44" cy="44" r="36" fill="#f59e0b" />
-    <text x="118" y="44" font-family="Inter, Arial, sans-serif" font-size="18" fill="#fff" font-weight="700">Garantia 30 Dias</text>
-    <text x="118" y="70" font-family="Inter, Arial, sans-serif" font-size="13" fill="#fef3c7">Satisfação ou reembolso</text>
-  </g>
-</svg>
