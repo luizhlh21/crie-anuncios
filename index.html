@@ -1,707 +1,100 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>LH Livros Digitais</title>
-
-  <!-- FAVICON -->
-  <!-- O arquivo precisa estar na mesma pasta do index.html -->
-  <link rel="icon" type="image/webp" href="imagem.webp">
-
-  <!-- GOOGLE FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- GOOGLE TAG -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11378859517"></script>
-
-  <script>
-
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'AW-11378859517');
-
-  </script>
-
-  <!-- EVENTOS GOOGLE ADS -->
-
-  <script>
-    gtag('event', 'page_view', {});
-  </script>
-
-  <script>
-    gtag('event', 'session_start', {});
-  </script>
-
-  <script>
-    gtag('event', 'first_visit', {});
-  </script>
-
-  <script>
-    gtag('event', 'scroll', {});
-  </script>
-
-  <script>
-    gtag('event', 'user_engagement', {});
-  </script>
-
-  <script>
-    gtag('event', 'video_start', {});
-  </script>
-
-  <script>
-    gtag('event', 'video_progress', {});
-  </script>
-
-  <script>
-    gtag('event', 'video_complete', {});
-  </script>
-
-  <script>
-    gtag('event', 'Vendas', {});
-  </script>
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      background:#07111f;
-      color:white;
-      overflow-x:hidden;
-    }
-
-    /* NAVBAR */
-
-    nav{
-      width:100%;
-      padding:20px 8%;
-      position:fixed;
-      top:0;
-      left:0;
-      z-index:999;
-      background:rgba(0,0,0,0.35);
-      backdrop-filter:blur(10px);
-    }
-
-    .nav-container{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .logo{
-      font-size:1.6rem;
-      font-weight:700;
-      color:white;
-    }
-
-    .menu{
-      display:flex;
-      gap:25px;
-    }
-
-    .menu a{
-      color:white;
-      text-decoration:none;
-      transition:.3s;
-      font-weight:500;
-    }
-
-    .menu a:hover{
-      color:#ffd000;
-    }
-
-    /* HERO */
-
-    header{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:140px 8% 80px;
-      background:
-      linear-gradient(
-      135deg,
-      #07111f,
-      #0d63d6,
-      #0da08b
-      );
-    }
-
-    .hero{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      align-items:center;
-      gap:60px;
-    }
-
-    .hero-text h1{
-      font-size:4rem;
-      line-height:1.1;
-      margin-bottom:25px;
-    }
-
-    .hero-text span{
-      color:#ffd000;
-    }
-
-    .hero-text p{
-      font-size:1.1rem;
-      color:#d9d9d9;
-      margin-bottom:35px;
-      line-height:1.8;
-    }
-
-    .btn{
-      display:inline-block;
-      padding:18px 40px;
-      background:#ffd000;
-      color:#000;
-      font-weight:700;
-      text-decoration:none;
-      border-radius:14px;
-      transition:.3s;
-      box-shadow:0 10px 30px rgba(0,0,0,0.35);
-    }
-
-    .btn:hover{
-      transform:translateY(-5px);
-      background:white;
-    }
-
-    .hero-image img{
-      width:100%;
-      border-radius:25px;
-      box-shadow:0 25px 60px rgba(0,0,0,0.4);
-    }
-
-    /* SEÇÕES */
-
-    section{
-      padding:100px 8%;
-    }
-
-    .section-title{
-      text-align:center;
-      margin-bottom:70px;
-    }
-
-    .section-title h2{
-      font-size:3rem;
-      margin-bottom:15px;
-    }
-
-    .section-title p{
-      color:#cfcfcf;
-    }
-
-    /* CARDS */
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:35px;
-    }
-
-    .card{
-      background:#10233f;
-      border-radius:25px;
-      overflow:hidden;
-      transition:.4s;
-      border:1px solid rgba(255,255,255,0.08);
-    }
-
-    .card:hover{
-      transform:translateY(-10px);
-      box-shadow:0 20px 40px rgba(0,0,0,0.4);
-    }
-
-    .card img{
-      width:100%;
-      display:block;
-    }
-
-    .card-content{
-      padding:30px;
-    }
-
-    .card-content h3{
-      margin-bottom:15px;
-      color:#ffd000;
-      font-size:1.4rem;
-    }
-
-    .card-content p{
-      color:#d9d9d9;
-      line-height:1.8;
-    }
-
-    /* SOBRE */
-
-    .about{
-      background:linear-gradient(
-      135deg,
-      #0b1730,
-      #0d2f58
-      );
-
-      border-radius:30px;
-      text-align:center;
-      padding:80px 40px;
-    }
-
-    .about h2{
-      font-size:3rem;
-      margin-bottom:20px;
-    }
-
-    .about p{
-      max-width:850px;
-      margin:auto;
-      line-height:2;
-      color:#d8d8d8;
-    }
-
-    /* CTA */
-
-    .cta{
-      text-align:center;
-      background:#0b1324;
-      border-radius:30px;
-      padding:90px 40px;
-    }
-
-    .cta h2{
-      font-size:3rem;
-      margin-bottom:20px;
-    }
-
-    .cta p{
-      color:#d9d9d9;
-      margin-bottom:35px;
-      line-height:1.8;
-    }
-
-    /* CONTATO */
-
-    .contact{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:40px;
-      align-items:center;
-    }
-
-    .contact-box{
-      background:#10233f;
-      padding:40px;
-      border-radius:25px;
-    }
-
-    .contact-box h3{
-      margin-bottom:20px;
-      color:#ffd000;
-      font-size:2rem;
-    }
-
-    .contact-box p{
-      margin:15px 0;
-      color:#d9d9d9;
-    }
-
-    .contact-box a{
-      color:#4cb7ff;
-      text-decoration:none;
-    }
-
-    .contact-image img{
-      width:100%;
-      border-radius:25px;
-      box-shadow:0 25px 60px rgba(0,0,0,0.4);
-    }
-
-    /* FOOTER */
-
-    footer{
-      background:#040912;
-      text-align:center;
-      padding:40px;
-      color:#b7b7b7;
-      margin-top:60px;
-    }
-
-    /* RESPONSIVO */
-
-    @media(max-width:950px){
-
-      .hero{
-        grid-template-columns:1fr;
-        text-align:center;
-      }
-
-      .contact{
-        grid-template-columns:1fr;
-      }
-
-      .hero-text h1{
-        font-size:2.5rem;
-      }
-
-      .section-title h2{
-        font-size:2.2rem;
-      }
-
-      .about h2,
-      .cta h2{
-        font-size:2rem;
-      }
-
-      .menu{
-        display:none;
-      }
-
-    }
-
-  </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LH Livros Digitais</title>
+<link rel="icon" type="image/webp" href="imagem.webp">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#081120;color:#fff}
+html{scroll-behavior:smooth}
+.container{width:90%;max-width:1200px;margin:auto}
+nav{position:fixed;top:0;width:100%;background:rgba(8,17,32,.85);backdrop-filter:blur(10px);z-index:999}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-weight:700;font-size:1.3rem}
+.menu a{color:#fff;text-decoration:none;margin-left:25px}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px}
+h1{font-size:4rem;line-height:1.1}
+h1 span{background:linear-gradient(90deg,#2563EB,#06B6D4,#7C3AED);-webkit-background-clip:text;color:transparent}
+.hero p,.section-title p,.card p,.about p,.cta p{color:#CBD5E1;line-height:1.8}
+.btn{display:inline-block;margin-top:25px;padding:18px 40px;border-radius:14px;text-decoration:none;color:#fff;font-weight:700;background:linear-gradient(90deg,#2563EB,#06B6D4)}
+.hero img,.contact img{width:100%;border-radius:24px}
+section{padding:100px 0}
+.section-title{text-align:center;margin-bottom:50px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+.card,.about,.contact-box{background:#0F172A;border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden}
+.card img{width:100%}
+.card div{padding:25px}
+.about{padding:60px;text-align:center}
+.cta{padding:70px;border-radius:30px;text-align:center;background:linear-gradient(135deg,#2563EB,#7C3AED)}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.contact-box{padding:35px}
+.contact-box a{color:#06B6D4;text-decoration:none}
+footer{text-align:center;padding:40px;color:#CBD5E1}
+@media(max-width:900px){
+.hero,.contact{grid-template-columns:1fr}
+h1{font-size:2.5rem}
+.menu{display:none}
+}
+</style>
 </head>
-
 <body>
-
-  <!-- NAVBAR -->
-
-  <nav>
-
-    <div class="nav-container">
-
-      <div class="logo">
-        LH Livros Digitais
-      </div>
-
-      <div class="menu">
-
-        <a href="#beneficios">Benefícios</a>
-
-        <a href="#sobre">Sobre</a>
-
-        <a href="#contato">Contato</a>
-
-      </div>
-
-    </div>
-
-  </nav>
-
-  <!-- HERO -->
-
-  <header>
-
-    <div class="hero">
-
-      <div class="hero-text">
-
-        <h1>
-
-          Aprenda a Criar
-          <span>Anúncios Lucrativos</span>
-          no Google Ads
-
-        </h1>
-
-        <p>
-
-          Descubra estratégias práticas para aumentar cliques,
-          conversões e vendas em diversos nichos de mercado.
-
-        </p>
-
-        <a
-          href="https://go.hotmart.com/W101954632D?dp=1"
-          target="_blank"
-          class="btn">
-
-          QUERO ACESSAR AGORA
-
-        </a>
-
-      </div>
-
-      <div class="hero-image">
-
-        <!-- IMAGEM PRINCIPAL -->
-        <img src="imagem 2.png" alt="Google Ads Ebook">
-
-      </div>
-
-    </div>
-
-  </header>
-
-  <!-- BENEFÍCIOS -->
-
-  <section id="beneficios">
-
-    <div class="section-title">
-
-      <h2>O Que Você Vai Aprender</h2>
-
-      <p>
-        Técnicas modernas para campanhas profissionais.
-      </p>
-
-    </div>
-
-    <div class="cards">
-
-      <div class="card">
-
-        <img src="imagem 2.png" alt="Campanhas">
-
-        <div class="card-content">
-
-          <h3>Campanhas Que Convertem</h3>
-
-          <p>
-            Aprenda a criar anúncios focados em resultados reais
-            e aumento de conversões.
-          </p>
-
-        </div>
-
-      </div>
-
-      <div class="card">
-
-        <img src="imagem 2.png" alt="Tráfego Pago">
-
-        <div class="card-content">
-
-          <h3>Tráfego Pago Inteligente</h3>
-
-          <p>
-            Descubra como alcançar o público certo
-            e reduzir custos em campanhas.
-          </p>
-
-        </div>
-
-      </div>
-
-      <div class="card">
-
-        <img src="imagem 2.png" alt="Anúncios Lucrativos">
-
-        <div class="card-content">
-
-          <h3>Anúncios Lucrativos</h3>
-
-          <p>
-            Transforme cliques em vendas usando
-            técnicas modernas e eficazes.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- SOBRE -->
-
-  <section id="sobre">
-
-    <div class="about">
-
-      <h2>Por Que Este Livro É Para Você?</h2>
-
-      <p>
-
-        Este material foi criado para iniciantes e também
-        para quem já utiliza Google Ads e deseja melhorar
-        seus resultados. Aprenda técnicas modernas e
-        aplicáveis em diversos nichos de mercado.
-
-      </p>
-
-    </div>
-
-  </section>
-
-  <!-- CTA -->
-
-  <section>
-
-    <div class="cta">
-
-      <h2>Comece Hoje Mesmo</h2>
-
-      <p>
-
-        Aprenda a criar campanhas que geram vendas,
-        cliques e crescimento real para o seu negócio.
-
-      </p>
-
-      <a
-        href="https://go.hotmart.com/W101954632D?dp=1"
-        target="_blank"
-        class="btn">
-
-        QUERO COMEÇAR AGORA
-
-      </a>
-
-    </div>
-
-  </section>
-
-  <!-- CONTATO -->
-
-  <section id="contato">
-
-    <div class="contact">
-
-      <div class="contact-box">
-
-        <h3>Contato</h3>
-
-        <p>
-          Email:
-          lhenriquegomes9@gmail.com
-        </p>
-
-        <p>
-          WhatsApp:
-          (21) 98605-5782
-        </p>
-
-        <p>
-
-          Instagram:
-          <a
-            href="https://www.instagram.com/luizhenriquelh_21/"
-            target="_blank">
-
-            @luizhenriquelh_21
-
-          </a>
-
-        </p>
-
-        <p>
-
-          Linkedin:
-          <a
-            href="https://www.linkedin.com/in/luiz-henrique-gomes-de-ara%C3%BAjo-8528a0350/"
-            target="_blank">
-
-            Luiz Henrique
-
-          </a>
-
-        </p>
-
-      </div>
-
-      <div class="contact-image">
-
-        <img src="imagem 2.png" alt="Google Ads">
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- FOOTER -->
-
-  <footer>
-
-    © 2026 LH Livros Digitais — Todos os direitos reservados.
-
-  </footer>
-
-  <script>
-
-    // ANIMAÇÃO DOS CARDS
-
-    const cards = document.querySelectorAll('.card');
-
-    cards.forEach(card => {
-
-      card.addEventListener('mouseenter', () => {
-
-        card.style.transform = 'translateY(-10px)';
-
-      });
-
-      card.addEventListener('mouseleave', () => {
-
-        card.style.transform = 'translateY(0px)';
-
-      });
-
-    });
-
-    // EVENTO DE SCROLL
-
-    window.addEventListener('scroll', () => {
-
-      gtag('event', 'scroll', {
-
-        page_location: window.location.href
-
-      });
-
-    });
-
-    // EVENTO DE CLIQUE NO BOTÃO
-
-    const buttons = document.querySelectorAll('.btn');
-
-    buttons.forEach(button => {
-
-      button.addEventListener('click', () => {
-
-        gtag('event', 'Vendas', {
-
-          event_category: 'Hotmart',
-
-          event_label: 'Clique no botão de compra'
-
-        });
-
-      });
-
-    });
-
-  </script>
-
+<nav><div class="container nav"><div class="logo">LH Livros Digitais</div><div class="menu"><a href="#beneficios">Benefícios</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a></div></div></nav>
+
+<div class="container hero">
+<div>
+<h1>Aprenda a Criar <span>Anúncios Lucrativos</span> no Google Ads</h1>
+<p>Descubra estratégias práticas para aumentar cliques, conversões e vendas em diversos nichos de mercado.</p>
+<a class="btn" href="https://go.hotmart.com/W101954632D?dp=1" target="_blank">QUERO ACESSAR AGORA</a>
+</div>
+<div><img src="imagem 2.png" alt="ebook"></div>
+</div>
+
+<section id="beneficios">
+<div class="container">
+<div class="section-title"><h2>O Que Você Vai Aprender</h2><p>Técnicas modernas para campanhas profissionais.</p></div>
+<div class="cards">
+<div class="card"><img src="imagem 2.png"><div><h3>Campanhas Que Convertem</h3><p>Aprenda a criar anúncios focados em resultados reais.</p></div></div>
+<div class="card"><img src="imagem 2.png"><div><h3>Tráfego Pago Inteligente</h3><p>Alcance o público certo e reduza custos.</p></div></div>
+<div class="card"><img src="imagem 2.png"><div><h3>Anúncios Lucrativos</h3><p>Transforme cliques em vendas com técnicas modernas.</p></div></div>
+</div>
+</div>
+</section>
+
+<section id="sobre">
+<div class="container">
+<div class="about">
+<h2>Por Que Este Livro É Para Você?</h2>
+<p>Material criado para iniciantes e também para quem já utiliza Google Ads e deseja melhorar seus resultados.</p>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="cta">
+<h2>Comece Hoje Mesmo</h2>
+<p>Aprenda a criar campanhas que geram vendas, cliques e crescimento real para o seu negócio.</p>
+<a class="btn" href="https://go.hotmart.com/W101954632D?dp=1" target="_blank">QUERO COMEÇAR AGORA</a>
+</div>
+</div>
+</section>
+
+<section id="contato">
+<div class="container contact">
+<div class="contact-box">
+<h2>Contato</h2>
+<p>Email: lhenriquegomes9@gmail.com</p>
+<p>WhatsApp: (21) 98605-5782</p>
+<p>Instagram: <a href="https://www.instagram.com/luizhenriquelh_21/" target="_blank">@luizhenriquelh_21</a></p>
+<p>TikTok: <a href="https://www.tiktok.com/@estoicosigmaofc" target="_blank">@estoicosigmaofc</a></p>
+</div>
+<div><img src="imagem 2.png" alt="contato"></div>
+</div>
+</section>
+
+<footer>© 2026 LH Livros Digitais — Todos os direitos reservados.</footer>
 </body>
-
 </html>
